@@ -2,6 +2,7 @@ package BankSystem;
 
 // Project: Bank System (ZZZ Edition)
 //https://github.com/mazamunexd
+//https://github.com/Masamune-dxd
 
 // import java.util.HashMap;
 // import java.util.Map;
@@ -571,5 +572,5 @@ class Admin {
     }
 }
 
-// Masamune xD {
-  
+// mazamunexd 
+// Masamune-dxd

@@ -73,6 +73,6 @@ A big thank you to the open-source community and all the resources that make lea
 ---
 
 <p align="center"><b>Happy Coding! ☕</b><br>
-<i>Your Java Journey Team</i></p>
+<i>MASAMUNE</i></p>
 
 

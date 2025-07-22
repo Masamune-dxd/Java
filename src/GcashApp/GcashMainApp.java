@@ -24,6 +24,7 @@ public class GcashMainApp {
             loggedInUserId = auth.login(email, pin);
             if (loggedInUserId != -1) {
                 loggedInEmail = email;
+                System.out.println("Hello, " + loggedInEmail + "! You are now logged in.");
                 break;
             } else {
                 System.out.println("Login failed. Try again.");
@@ -33,6 +34,7 @@ public class GcashMainApp {
         boolean running = true;
         while (running) {
             System.out.println("\n--- Main Menu ---");
+            System.out.println("Logged in as: " + loggedInEmail);
             System.out.println("1. Check Balance");
             System.out.println("2. Cash-In");
             System.out.println("3. Transfer");
@@ -43,33 +45,26 @@ public class GcashMainApp {
 
             switch (choice) {
                 case "1":
-                    System.out.print("Enter your User ID: ");
-                    String userId = scanner.nextLine();
-                    double balance = balanceChecker.checkUserBalance(userId);
+                    // Use loggedInUserId for balance
+                    double balance = balanceChecker.checkUserBalance(String.valueOf(loggedInUserId));
                     System.out.printf("Your balance: %.2f\n", balance);
                     break;
                 case "2":
-                    System.out.print("Enter your Account ID: ");
-                    String accId = scanner.nextLine();
                     System.out.print("Enter amount to cash-in: ");
                     double cashInAmount = Double.parseDouble(scanner.nextLine());
-                    System.out.print("Enter your name: ");
-                    String name = scanner.nextLine();
-                    cashInService.cashIn(accId, cashInAmount, name);
+                    // Use loggedInUserId and loggedInEmail for account and name
+                    cashInService.cashIn(String.valueOf(loggedInUserId), cashInAmount, loggedInEmail);
                     break;
                 case "3":
-                    System.out.print("Enter your Account ID: ");
-                    String senderId = scanner.nextLine();
                     System.out.print("Enter receiver Account ID: ");
                     String receiverId = scanner.nextLine();
                     System.out.print("Enter amount to transfer: ");
                     double transferAmount = Double.parseDouble(scanner.nextLine());
-                    transferService.transferCash(senderId, receiverId, transferAmount);
+                    transferService.transferCash(String.valueOf(loggedInUserId), receiverId, transferAmount);
                     break;
                 case "4":
-                    System.out.print("Enter your Account ID: ");
-                    String txUserId = scanner.nextLine();
-                    transactionService.viewUserAll(txUserId);
+                    // Use loggedInUserId for transaction view
+                    transactionService.viewUserAll(String.valueOf(loggedInUserId));
                     break;
                 case "5":
                     auth.logout(loggedInUserId);

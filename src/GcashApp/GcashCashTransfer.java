@@ -25,27 +25,27 @@ public class GcashCashTransfer {
     public static class CashTransfer {
 
         public boolean transferCash(String senderAccountId, String receiverAccountId, double amount) {
-            System.out.println("\nAttempting transfer from " + senderAccountId + " to " + receiverAccountId + " of " + String.format("%.2f", amount));
-
+            System.out.printf("|%86s|\n", "");
+            System.out.printf("|%-86s|\n", " Attempting transfer from " + senderAccountId + " to " + receiverAccountId + " of " +  amount);
             // Condition 1: amount must be positive
             if (amount <= 0) {
-                System.out.println("Transfer Failed: Amount must be greater than zero.");
+                System.out.printf("|%-86s|\n", " Transfer Failed: Amount must be greater than zero.");
                 return false;
             }
 
             // Condition 2: sender and receiver accs must exist
             if (!accountBalances.containsKey(senderAccountId)) {
-                System.out.println("Transfer Failed: Sender account " + senderAccountId + " not found.");
-                return false;
+            System.out.printf("|%-86s|\n", " Transfer Failed: Sender account " + senderAccountId + " not found.");
+            return false;
             }
             if (!accountBalances.containsKey(receiverAccountId)) {
-                System.out.println("Transfer Failed: Receiver account " + receiverAccountId + " not found.");
+                System.out.printf("|%-86s|\n", " Transfer Failed: Receiver account " + receiverAccountId + " not found.");
                 return false;
             }
 
             // Condition 3: cant transfer money to same acc
             if (senderAccountId.equals(receiverAccountId)) {
-                System.out.println("Transfer Failed: Cannot transfer to the same account.");
+                System.out.printf("|%-86s|\n", " Transfer Failed: Cannot transfer to the same account. ");
                 return false;
             }
 
@@ -53,26 +53,28 @@ public class GcashCashTransfer {
 
             // Condition 4: no money
             if (senderCurrentBalance < amount) {
-                System.out.println("Transfer Failed: Insufficient funds in " + senderAccountId + ".");
-                System.out.println("    Current balance: " + String.format("%.2f", senderCurrentBalance) + ", Needed: " + String.format("%.2f", amount));
+                System.out.println("| Transfer Failed: Insufficient funds in " + String.format("%-44s  |",
+                senderAccountId + "."));                                      
+                System.out.println("|   Current balance: " + String.format("%.2f", senderCurrentBalance) + ", Needed: " + String.format("%-49.2f |", amount));
                 return false;
             }
 
-            // transfer if conditions are good
+            // transfer if conditions are good 
             double receiverCurrentBalance = accountBalances.get(receiverAccountId);
 
             accountBalances.put(senderAccountId, senderCurrentBalance - amount);
             accountBalances.put(receiverAccountId, receiverCurrentBalance + amount);
 
-            System.out.println("Transfer Successful!");
-            System.out.println("    Sender " + senderAccountId + " new balance: " + String.format("%.2f", accountBalances.get(senderAccountId)));
-            System.out.println("    Receiver " + receiverAccountId + " new balance: " + String.format("%.2f", accountBalances.get(receiverAccountId)));
+            System.out.printf("|%-86s|\n", " Transfer Successful!");
+            System.out.println("|    Sender " + senderAccountId + " new balance: " + String.format("%-53.2f |", accountBalances.get(senderAccountId)));
+            System.out.println("|    Receiver " + receiverAccountId + " new balance: " + String.format("%-51.2f |", accountBalances.get(receiverAccountId)));
             return true;
         }
     }
 
     public static void main(String[] args) {
         CashTransfer transferService = new CashTransfer();
+        System.out.println();
         System.out.println("========================================================================================");
         System.out.println("|                                                                                      |");
         System.out.println("|                                GCASH APP - CASH TRANSFER                             |");
@@ -89,25 +91,25 @@ public class GcashCashTransfer {
 
         // ---ACTS (Tests for Cash-Transfer) ---
 
-        // ACT 1: Successful Transfer
+        // ACT 1: cash transfer success
         transferService.transferCash("USER001", "USER002", 150.00);
 
-        // ACT 2: Insufficient Funds
+        // ACT 2: no money
         transferService.transferCash("USER003", "USER001", 300.00); // USER003 only has 200
 
-        // ACT 3: Transfer to Non-existent Account
+        // ACT 3: transfer to Account not found
         transferService.transferCash("USER001", "NONEXIST", 50.00);
 
-        // ACT 4: Transfer from Non-existent Account
+        // ACT 4: transfer from Account not found
         transferService.transferCash("NONEXIST", "USER002", 50.00);
 
-        // ACT 5: Transfer Zero Amount
+        // ACT 5: transfer Zero Amount
         transferService.transferCash("USER001", "USER003", 0.00);
 
-        // ACT 6: Transfer Negative Amount
+        // ACT 6: transfer Negative Amount
         transferService.transferCash("USER002", "USER001", -20.00);
 
-        // ACT 7: Transfer to Self
+        // ACT 7: transfer to Self, selfish
         transferService.transferCash("USER001", "USER001", 10.00);
 
         System.out.println("|======================================================================================|");
@@ -118,6 +120,7 @@ public class GcashCashTransfer {
         for (Map.Entry<String, Double> entry : accountBalances.entrySet()) {
             System.out.printf("| %-40s | %-41.2f |\n", entry.getKey(), entry.getValue());
         }
-        System.out.println("|======================================================================================|");
+        System.out.println("========================================================================================");
+        System.out.println();
     }
 }

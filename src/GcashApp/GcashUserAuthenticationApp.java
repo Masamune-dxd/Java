@@ -186,6 +186,7 @@ public class GcashUserAuthenticationApp {
             auth.logout(juanId);
         }
         auth.logout(9999); // Logout for non-existent user
+        System.out.printf("|%84s|\n", "");
 
         System.out.println("|====================================================================================|");
         System.out.println("|                              REGISTERED USERS DATABASE                             |");

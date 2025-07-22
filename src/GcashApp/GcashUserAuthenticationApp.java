@@ -150,7 +150,7 @@ public class GcashUserAuthenticationApp {
         System.out.printf("|%84s|\n", "");
         System.out.printf("|%-84s|\n", " --- ACT 1: Successful Registration --- ");
         auth.register("Jane Doe", "janedoeisthicc@engmail.com", "09171234567", "1234");
-        auth.register("Yixuan", "iamyixuan69@ecngmail.com", "09209876543", "5678");
+        auth.register("Yixuan", "iamyixuan69@cngmail.com", "09209876543", "5678");
 
         // Act 2: Failed Registration (Invalid Email, Existing Email, Invalid PIN)
         System.out.printf("|%84s|\n", "");

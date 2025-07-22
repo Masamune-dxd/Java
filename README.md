@@ -22,6 +22,9 @@
 - **🏗️ Project: Bank Application:**  
   Build a functional Bank Application from scratch, with step-by-step guidance.
 
+- **💸 GCash App Simulation:**  
+  Explore a simulated GCash application with features like user authentication, balance checking, cash-in, cash transfer, and transaction viewing.
+
 - **➕ More to Come!**  
   Continuous updates with new content, challenges, and projects.
 

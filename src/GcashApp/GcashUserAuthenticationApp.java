@@ -139,7 +139,7 @@ public class GcashUserAuthenticationApp {
     public static void main(String[] args) {
         UserAuthentication auth = new UserAuthentication();
 
-        // --- for testing userAuthentication ---
+        // --- ACTION (for testing userAuthentication) ---
         System.out.println("\n====================================================================================");
         System.out.println("                                 USER AUTHENTICATION                                ");
         System.out.println("====================================================================================");

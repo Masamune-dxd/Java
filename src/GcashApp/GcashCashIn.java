@@ -59,11 +59,11 @@ public class GcashCashIn {
     public static class CashIn {
         public boolean cashIn(String accountId, double amount, String customerName) {
             if (amount <= 0) {
-                System.out.println("| Cash-in Failed: Amount must be positive.                                         |");
+                System.out.printf("|%-82s|\n", " Cash-in Failed: Amount must be positive.");
                 return false;
             }
             if (!accountBalances.containsKey(accountId)) {
-                System.out.println("| Cash-in Failed: Account ID " + accountId + " not found.                                     |");
+                System.out.printf("|%-82s|\n", " Cash-in Failed: Account ID " + accountId + " not found.");
                 return false;
             }
 
@@ -76,7 +76,7 @@ public class GcashCashIn {
             Transaction newTransaction = new Transaction(nextTransactionId++, amount, customerName, accountId, transactionDate, accountId, "CASH_IN"); // bts, transferToId is self, transferFromId is source
             transactionLog.put(newTransaction.getId(), newTransaction);
 
-            System.out.println("| Cash-in Successful! Account " + accountId + " new balance: " + String.format("%-25.2f        |", accountBalances.get(accountId)));
+            System.out.printf("|%-82s|\n", " Cash-in Successful! Account " + accountId + " new balance: " + String.format("%.2f", accountBalances.get(accountId)));
             return true;
         }
     }

@@ -49,47 +49,47 @@ public class GcashUserAuthenticationApp {
         public boolean register(String name, String email, String number, String pin) {
             // Simple validation
             if (name == null || name.trim().isEmpty()) {
-                System.out.println("Registration Failed: Name cannot be empty.");
-                return false;
+            System.out.printf("|%-84s|\n", " Registration Failed: Name cannot be empty.");
+            return false;
             }
             if (email == null || !email.contains("@") || !email.contains(".")) {
-                System.out.println("Registration Failed: Invalid email format.");
+                System.out.printf("|%-84s|\n", " Registration Failed: Invalid email format.");
                 return false;
             }
-            if (number == null || number.length() < 10) { // Basic phone number length check
-                System.out.println("Registration Failed: Invalid phone number.");
+            if (number == null || number.length() < 10) { // 10 digit phone number length checker
+                System.out.printf("|%-84s|\n", " Registration Failed: Invalid phone number.");
                 return false;
             }
             if (pin == null || pin.length() != 4 || !pin.matches("\\d+")) { // 4-digit PIN
-                System.out.println("Registration Failed: PIN must be 4 digits.");
+                System.out.printf("|%-84s|\n", " Registration Failed: PIN must be 4 digits.");
                 return false;
-            }
+}
 
             // check if email already exists
             if (usersDatabase.containsKey(email)) {
-                System.out.println("Registration Failed: Email already registered.");
-                return false;
-            }
+            System.out.printf("|%-84s|\n", " Registration Failed: Email already registered.");
+            return false;
+}
 
             // if all validations pass, create and store user
             User newUser = new User(nextUserId++, name, email, number, pin);
             usersDatabase.put(email, newUser);
-            System.out.println("Registration Success! User ID: " + newUser.getId());
+            System.out.printf("|%-84s|\n", " Registration Success! User ID: " + newUser.getId());
             return true;
         }
 
         public long login(String email, String pin) {
             User user = usersDatabase.get(email);
             if (user == null) {
-                System.out.println("Login Failed: User not found (Email not registered).");
-                return -1; // User not found
+            System.out.printf("|%-84s|\n", " Login Failed: User not found (Email not registered).");
+            return -1; // User not found
             }
             if (!user.getPin().equals(pin)) {
-                System.out.println("Login Failed: Incorrect PIN for " + email + ".");
+                System.out.printf("|%-84s|\n", " Login Failed: Incorrect PIN for " + email + ".");
                 return -1; // Incorrect PIN
             }
 
-            System.out.println("Login Success! Welcome, " + user.getName() + " (ID: " + user.getId() + ")");
+            System.out.printf("|%-84s|\n", " Login Success! Welcome, " + user.getName() + " (ID: " + user.getId() + ")");
             return user.getId();
         }
 
@@ -129,9 +129,9 @@ public class GcashUserAuthenticationApp {
                 }
             }
             if (loggedOutUser != null) {
-                System.out.println("Logout Success for user ID: " + userId + " (" + loggedOutUser.getEmail() + ").");
+               System.out.printf("|%-84s|\n", " Logout Success for user ID: " + userId + " (" + loggedOutUser.getEmail() + ").");
             } else {
-                System.out.println("Logout attempted for unknown user ID: " + userId + ".");
+                System.out.printf("|%-84s|\n", " Logout attempted for unknown user ID: " + userId + ".");
             }
         }
     }
@@ -140,32 +140,39 @@ public class GcashUserAuthenticationApp {
         UserAuthentication auth = new UserAuthentication();
 
         // --- ACTION (for testing userAuthentication) ---
-        System.out.println("\n====================================================================================");
-        System.out.println("                                 USER AUTHENTICATION                                ");
-        System.out.println("====================================================================================");
+        System.out.println("======================================================================================");
+        System.out.printf("|%84s|\n", "");
+        System.out.println("|                                 USER AUTHENTICATION                                |");
+        System.out.printf("|%84s|\n", "");
+        System.out.println("|====================================================================================|");
 
         // Act 1: Successful Registration
-        System.out.println("\n--- ACT 1: Successful Registration ---");
+        System.out.printf("|%84s|\n", "");
+        System.out.printf("|%-84s|\n", " --- ACT 1: Successful Registration --- ");
         auth.register("Jane Doe", "janedoeisthicc@engmail.com", "09171234567", "1234");
         auth.register("Yixuan", "iamyixuan69@ecngmail.com", "09209876543", "5678");
 
         // Act 2: Failed Registration (Invalid Email, Existing Email, Invalid PIN)
-        System.out.println("\n--- ACT 2: Failed Registrations ---");
-        auth.register("Hoshimi Miyabi", "miyamiyabijpgmail.com", "09123456789", "9999"); // Invalid email
+        System.out.printf("|%84s|\n", "");
+        System.out.printf("|%-84s|\n", " --- ACT 2: Failed Registration --- ");
+        auth.register("Hoshimi Miyabi", "miyamiyabijpgmail.com", "09123456789", "9999"); // Invalid email no @
         auth.register("Soldier 11", "unknownhacker@godgmail.com", "09171234568", "2222"); // Existing email
-        auth.register("Nicole Demara", "goddessnicole@engmail.com", "09151112222", "abc");   // Invalid PIN
+        auth.register("Nicole Demara", "goddessnicole@engmail.com", "09151112222", "abc");   // Invalid PIN must be number and 4 digits
 
         // Act 3: Successful Login
-        System.out.println("\n--- ACT 3: Successful Login ---");
+        System.out.printf("|%84s|\n", "");
+        System.out.printf("|%-84s|\n", " --- ACT 3: Successful Login --- ");
         long juanId = auth.login("hungergamesinafrica@example.com", "1234");
 
-        // ACT 4: Failed Login (Incorrect PIN, User Not Found)
-        System.out.println("\n--- ACT 4: Failed Logins ---");
-        auth.login("hungergamesinafrica@example.com", "9999");      // Incorrect PIN
-        auth.login("unknownhackker@example.com", "1111"); // User not found
+        // ACT 4: Failed Login (wrong PIN, user Not Found)
+        System.out.printf("|%84s|\n", "");
+        System.out.printf("|%-84s|\n", " --- ACT 4: Failed Login --- ");
+        auth.login("hungergamesinafrica@example.com", "9999"); // wrong PIN
+        auth.login("unknownhackker@example.com", "1111"); // user not found
 
         // ACT 5: Change PIN
-        System.out.println("\n--- ACT 5: Change PIN ---");
+        System.out.printf("|%84s|\n", "");
+        System.out.printf("|%-84s|\n", " --- ACT 5: CHANGE PIN --- ");
         if (juanId != -1) {
             auth.changePin(juanId, "1234", "0000"); // Successful change
             auth.changePin(juanId, "1234", "0000"); // Failed (old PIN incorrect now)
@@ -173,17 +180,18 @@ public class GcashUserAuthenticationApp {
         }
 
         // ACT 6: Logout
-        System.out.println("\n--- ACT 6: Logout ---");
+        System.out.printf("|%84s|\n", "");
+        System.out.printf("|%-84s|\n", " --- ACT 6: LOGOUT --- ");
         if (juanId != -1) {
             auth.logout(juanId);
         }
         auth.logout(9999); // Logout for non-existent user
 
-        System.out.println("\n======================================================================================");
+        System.out.println("|====================================================================================|");
         System.out.println("|                              REGISTERED USERS DATABASE                             |");
-        System.out.println("======================================================================================");
+        System.out.println("|====================================================================================|");
         System.out.printf("| %-4s | %-20s | %-26s | %-15s | %-5s |\n", "ID", "Name", "Email", "Number", "PIN");
-        System.out.println("======================================================================================");
+        System.out.println("|====================================================================================|");
 
         if (usersDatabase.isEmpty()) {
             System.out.println("|                          No users registered yet.                              |");
@@ -194,5 +202,6 @@ public class GcashUserAuthenticationApp {
             }
         }
         System.out.println("======================================================================================");
+        System.out.println();
     }
 }
